@@ -10,7 +10,6 @@ Luego de descargar/clonar, en la consola(linea de comandos Gnome-terminal Linux-
 	5. Desde PostMan, RESTClient, o curl:
 		curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -i 'http://34.205.63.101:3000/auth/register' --data 'username=egpc&email=egpc%40mail.com&password=egpc12345'
 
-
 Explicacion
 	1. Instalamos libreria para la sintaxis a ECMAJavascript.
 	2. Instalamos las demas dependencias. 
