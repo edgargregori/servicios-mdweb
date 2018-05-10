@@ -15,7 +15,7 @@ COMANDOS PARA CLONAR EL REPO Y ANIADIR TU RAMA(OPCIONAL).
 8. git branch -b tu-rama,
 9. git add .,
 10. git commit -m "blabla",
-11. git push -u origin -b tu-rama.
+11. git push -u origin tu-rama.
 
 12. Trabajar en su rama, siempre verificando: 
   12.1. Si la rama master cambia, entonces.
