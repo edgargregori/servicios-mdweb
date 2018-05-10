@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { UserSchema } from '../models/userModel';
-import amqp from 'amqplib/callback_api';
+//import amqp from 'amqplib/callback_api';
 
-//var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
 
 const User = mongoose.model('User', UserSchema);
 
@@ -61,15 +61,15 @@ export const sendQueue = (req, res, next) => {
 	    var key = (args.length > 0) ? args[0] : 'idea.users.stat';
 	
 	    ch.assertExchange(ex, 'topic', {durable: false});
-	    //ch.publish(ex, key, new Buffer(msg));
+	    ch.publish(ex, key, new Buffer(msg));
 			// timeSendToQueue < timeExit
 			const timeSendToQueue = 2000;
-	  	setTimeout(function() { ch.publish(ex, key, new Buffer(msg)); }, timeSendToQueue);
+	  	//setTimeout(function() { ch.publish(ex, key, new Buffer(msg)); }, timeSendToQueue);
 	    console.log(" [x] Sent %s: '%s'", key, msg);
 	  });
 	
-		const timeExit = 5000;
-	  setTimeout(function() { conn.close(); process.exit(0) }, timeExit);
+		const timeExit = 1000;
+	  setTimeout(function() { conn.close(); process.exit(0);}, timeExit);
 	});
    next();
 }

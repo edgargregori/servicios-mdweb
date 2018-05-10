@@ -23,6 +23,7 @@ Explicacion
       Si quisieramos hacer una prueba sin el app-servicio-users:
 			$ ./receive_logs_dominio.js "*.users.*"    <-- este comando inicia a un consumidor(trabajador)
       $ ./emit_logs_dominio.js "*.users.*" "Hi from Sucre" <-- este comando inicia a un producto(trabajo)
+	 NOTA: 	si quisieramos lanzar el programa(script) que escucha(trabajador, consumidor), desde nuesta PC(linea comandos) cambiamos "localhost" a "amqp://34.205.63.101:5672", y luejo ejecutamos el paso "4.".
 	
 Salidas
 a)Esperando mensaje de la cola desde Users
@@ -40,3 +41,18 @@ $ ./receive_logs_dominio.js "*.users.*"                       (130)
   created_date: 2018-05-09T14:44:27.404Z }'
 ^C
 		
+Salida crear una token:
+a)REQ
+ $ curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -i 'http://34.205.63.101:3000/auth/login' --data 'username=egpc&email=egpc%40mail.com&password=egpc12345'
+b) REP:
+...
+{"token":"AASDASDFALKSDFASDLFKJALSKDJF"}
+
+Salida crear una idea:
+a) Creamos una idea(Luego de obtener el token):
+$ curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -H 'Authorization: JWT <token>' -i 'http://34.205.63.101:3000/idea' --data 'suggesting=u1suggetisng&proposer=u1%40mail.com&name=u1'
+
+b) Lista de ideas:
+$ curl -X GET -H 'Content-Type: application/x-www-form-urlencoded' -H 'Authorization: JWT <token>' -i 'http://34.205.63.101:3000/idea'
+
+

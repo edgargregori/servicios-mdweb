@@ -31,7 +31,8 @@ const routes = (app) => {
 
     // registration route
     app.route('/auth/register')
-        .post(sendQueue, register);
+        .post(register, sendQueue);
+        //.post(register);
 
     // login route
     app.route('/auth/login')

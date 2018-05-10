@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import jsonwebtoken from 'jsonwebtoken';
 import User from './src/models/userModel';
 import routes from './src/routes/crmRoutes';
+import routesIdeas from './src/routes/ideaRoutes';
 
 const app = express();
 const PORT = 3000;
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 });
 
 routes(app);
+routesIdeas(app);
 
 // serving static files
 app.use(express.static('public'));
