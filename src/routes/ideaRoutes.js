@@ -3,7 +3,8 @@ import {
     getIdeas, 
     getIdeaWithID, 
     updateIdea,
-    deleteIdea 
+    deleteIdea,
+		sendQueueFromIdea
 } from '../controllers/ideaController';
 import { login, register, loginRequired, sendQueue} from '../controllers/userControllers';
 
@@ -14,12 +15,12 @@ const routesIdeas = (app) => {
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
-    }, loginRequired, getIdeas)
+    },sendQueueFromIdea, loginRequired, getIdeas)
     //}, getIdeas)
     
     // POST endpoint
     //.post(addNewIdea);
-    .post(loginRequired, addNewIdea);
+    .post(sendQueueFromIdea, loginRequired, addNewIdea);
 
     app.route('/idea/:ideaId')
     // get specific idea
@@ -36,8 +37,8 @@ const routesIdeas = (app) => {
 
     // registration route
     app.route('/auth/register')
-        .post(register);
-        //.post(register,sendQueue);
+        //.post(register);
+        .post(register, sendQueue);
 
     // login route
     app.route('/auth/login')

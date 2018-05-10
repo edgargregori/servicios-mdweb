@@ -61,15 +61,18 @@ export const sendQueue = (req, res, next) => {
 	    var key = (args.length > 0) ? args[0] : 'idea.users.stat';
 	
 	    ch.assertExchange(ex, 'topic', {durable: false});
-	    ch.publish(ex, key, new Buffer(msg));
+	    //ch.publish(ex, key, new Buffer(msg));
 			// timeSendToQueue < timeExit
-			const timeSendToQueue = 2000;
-	  	//setTimeout(function() { ch.publish(ex, key, new Buffer(msg)); }, timeSendToQueue);
+			const timeSendToQueue = 500;
+	  	setTimeout(function() { ch.publish(ex, key, new Buffer(msg)); }, timeSendToQueue);
 	    console.log(" [x] Sent %s: '%s'", key, msg);
 	  });
 	
 		const timeExit = 1000;
-	  setTimeout(function() { conn.close(); process.exit(0);}, timeExit);
+	  setTimeout(function() { 
+			conn.close(); 
+			//process.exit(0);
+		}, timeExit);
 	});
    next();
 }

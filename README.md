@@ -32,7 +32,7 @@ Luego de descargar/clonar, en la consola(linea de comandos Gnome-terminal Linux-
 2. $ npm --save install, 
 3. $ npm start,
 4. Desde el directorio queueUsers/: 
-	$ ./receive_logs_dominio.js "*.users.*",
+	$ ./receive_logs_dominio.js "\*.users.\*" "blabla", <-- el primer argumento: indica que este trabajador solo escuchara el servicio usuarios, el segundo argumento es opcional, para nuestro caso NO lo tomamaos en cuenta, porque el mensaje lo elaboramos en la funcion "sendQueue".
 5. Desde PostMan, RESTClient, o curl:
 		curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -i 'http://34.205.63.101:3000/auth/register' --data 'username=egpc&email=egpc%40mail.com&password=egpc12345',
 
@@ -45,10 +45,10 @@ Explicacion
 		$ rm -r /node_modules 
 		luego: ejectuar 1. y 2.
 4. Este programa escucha los mensajes de la cola topic_logs que se encuentran en amqp://34.205.63.101:5672/.
-		El programa que emite es:./emit_logs_dominio.js y esta incluido en 'src/controllers/userController.js'; bajo el metodo sendQueue.
-    Si quisieramos hacer una prueba sin el app-servicio-users:
+		El programa que emite es:./emit_logs_dominio.js y esta incluido en 'src/controllers/userController.js'; bajo el metodo "SendQueue".
+    Si quisieramos hacer una prueba sin el app-servicio-users(sin la application):
 		$ ./receive_logs_dominio.js "\*.users.\*"    <-- este comando inicia a un consumidor(trabajador)
-    $ ./emit_logs_dominio.js "*.users.*" "Hi from Sucre" <-- este comando inicia a un producto(trabajo)
+    $ ./emit_logs_dominio.js "\*.users.\*" "Hi from Sucre" <-- este comando inicia a un productor(trabajo)
  NOTA: 	si quisieramos lanzar el programa(script) que escucha(trabajador, consumidor), desde nuesta PC(linea comandos) cambiamos "localhost" a "amqp://34.205.63.101:5672", y luejo ejecutamos el paso "4.".
 	
 Salidas
@@ -59,9 +59,9 @@ b)REQ
 $ curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -i 'http://34.205.63.101:3000/auth/register' --data 'username=egpc&email=egpc%40mail.com&password=egpc12345'
 
 c) REP 
-$ ./receive_logs_dominio.js "*.users.*"                       (130)
+$ ./receive_logs_dominio.js "\*.users.\*"                       (130)
  [*] Waiting for logs. To exit press CTRL+C
- [x] *.users.*: 'User created:  { username: 'u2',
+ [x] \*.users.\*: 'User created:  { username: 'u2',
   email: 'u2@mail.com',
   _id: 5af3094ba8f65039c8d27266,
   created_date: 2018-05-09T14:44:27.404Z }'

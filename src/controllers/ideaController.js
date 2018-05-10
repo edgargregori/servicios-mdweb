@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { IdeaSchema } from '../models/ideaModel';
 
+var amqp = require('amqplib/callback_api');
+
 const Idea = mongoose.model('Idea', IdeaSchema);
 
 export const addNewIdea = (req, res) => {
@@ -50,4 +52,31 @@ export const deleteIdea = (req, res) => {
     })
 }
 
-
+export const sendQueueFromIdea = (req, res, next) => {
+//var amqp = require('amqplib/callback_api');
+  //const newUser = new User(req.body);
+	amqp.connect('amqp://localhost', function(err, conn) {
+	  conn.createChannel(function(err, ch) {
+	    var ex = 'topic_logs';
+	    //var args = process.argv.slice(2);
+			var args = ["*.users.*", "Lista ideas: "];
+			//var args = ["*.users.*", "Lista ideas: ", newUser];
+	    var msg = args.slice(1).join(' ') || 'ideaController: Mmmmm..!';
+	    var key = (args.length > 0) ? args[0] : 'idea.users.stat';
+	
+	    ch.assertExchange(ex, 'topic', {durable: false});
+	    //ch.publish(ex, key, new Buffer(msg));
+			// timeSendToQueue < timeExit
+			const timeSendToQueue = 500;
+	  	setTimeout(function() { ch.publish(ex, key, new Buffer(msg)); }, timeSendToQueue);
+	    console.log(" [x] Sent %s: '%s'", key, msg);
+	  });
+	
+		const timeExit = 1000;
+	  setTimeout(function() { 
+			conn.close(); 
+			//process.exit(0);
+		}, timeExit);
+	});
+   next();
+}
