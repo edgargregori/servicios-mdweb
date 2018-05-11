@@ -5,6 +5,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import User from './src/models/userModel';
 import routes from './src/routes/crmRoutes';
 import routesIdeas from './src/routes/ideaRoutes';
+import routesPvotess from './src/routes/pvotesRoutes';
 
 const app = express();
 const PORT = 3000;
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 
 routes(app);
 routesIdeas(app);
+routesPvotess(app);
 
 // serving static files
 app.use(express.static('public'));

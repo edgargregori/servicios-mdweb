@@ -56,7 +56,8 @@ export const sendQueue = (req, res, next) => {
 	  conn.createChannel(function(err, ch) {
 	    var ex = 'topic_logs';
 	    //var args = process.argv.slice(2);
-			var args = ["*.users.*", "User created: ", newUser];
+			var args = ["*.users.*", "From User to User: created: ", newUser];
+			//var args = ["*.*.stat", "Msg from Users(created) to Stat: ", newUser];
 	    var msg = args.slice(1).join(' ') || 'Hello World!';
 	    var key = (args.length > 0) ? args[0] : 'idea.users.stat';
 	
