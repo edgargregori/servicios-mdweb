@@ -48,6 +48,14 @@ export const loginRequired = (req, res, next) => {
     }
 }
 
+export const deleteAllPvotes = (req, res) => {
+    User.remove({}, (err, idea) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json({ message: 'Successfully deleted all Users'});
+    })
+}
 
 export const sendQueue = (req, res, next) => {
 //var amqp = require('amqplib/callback_api');
@@ -77,3 +85,32 @@ export const sendQueue = (req, res, next) => {
 	});
    next();
 }
+
+///*
+var exec = require('child_process').exec;
+
+export const receiveFromUsersToQueue = (req, res, next) => {
+	console.log(req.body);
+	var child = exec('node ./queueUsers/receive_logs_dominio.js "*.users.*"');
+	child.stdout.on('data', function(data) {
+	    console.log('stdout: ' + data);
+	});
+	child.stderr.on('data', function(data) {
+	    console.log('stdout: ' + data);
+	});
+	child.on('close', function(code) {
+	    console.log('closing code: ' + code);
+	});
+	next();	
+}
+//*/
+	//var child = exec('node ./commands/server.js');
+	//child.stdout.on('data', function(data) {
+	//    console.log('stdout: ' + data);
+	//});
+	//child.stderr.on('data', function(data) {
+	//    console.log('stdout: ' + data);
+	//});
+	//child.on('close', function(code) {
+	//    console.log('closing code: ' + code);
+	//});

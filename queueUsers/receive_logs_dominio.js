@@ -24,7 +24,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
 
       ch.consume(q.queue, function(msg) {
         console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-				const mensaje = "Bye";
+				const mensaje = "Bye from queueUsers/receive_logs_dominio.js";
 				console.log("....: ", mensaje)
       }, {noAck: true});
     });

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js --exec babel-node -e js"
+    "start": "./queueUsers/receive_logs_dominio.js \"*.users.*\"  | nodemon ./index.js --exec babel-node -e js  ",
+    "backup": " nodemon ./index.js --exec babel-node -e js | ./queueUsers/receive_logs_dominio.js \"*.users.*\" ",
+    "queue": "./queueUsers/receive_logs_dominio.js \"*.users.*\""
   },
   "author": "Emmanuel Henri",
   "license": "ISC",

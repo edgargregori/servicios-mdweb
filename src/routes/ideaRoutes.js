@@ -4,9 +4,10 @@ import {
     getIdeaWithID, 
     updateIdea,
     deleteIdea,
+		deleteAllIdea,
 		sendQueueFromIdea
 } from '../controllers/ideaController';
-import { login, register, loginRequired, sendQueue} from '../controllers/userControllers';
+import { login, register, loginRequired, deleteAllPvotes, sendQueue, receiveFromUsersToQueue} from '../controllers/userControllers';
 
 const routesIdeas = (app) => {
     app.route('/idea')
@@ -15,7 +16,7 @@ const routesIdeas = (app) => {
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
-    },sendQueueFromIdea, loginRequired, getIdeas)
+    },sendQueueFromIdea,receiveFromUsersToQueue, loginRequired, getIdeas)
     //}, getIdeas)
     
     // POST endpoint
@@ -35,6 +36,9 @@ const routesIdeas = (app) => {
     .delete(deleteIdea);
     //.delete(loginRequired, deleteIdea);
 
+		app.route('/idea/delete/all')
+			  .get(deleteAllIdea);
+
     // registration route
     app.route('/auth/register')
         //.post(register);
@@ -43,6 +47,9 @@ const routesIdeas = (app) => {
     // login route
     app.route('/auth/login')
         .post(login);
+
+		app.route('/user/delete/all')
+			.get(deleteAllPvotes);
 }
 
 export default routesIdeas;

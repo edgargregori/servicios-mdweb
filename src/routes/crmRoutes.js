@@ -5,7 +5,13 @@ import {
     updateContact,
     deleteContact 
 } from '../controllers/crmController';
-import { login, register, loginRequired, sendQueue} from '../controllers/userControllers';
+import { 
+		login, 
+		register, 
+		loginRequired, 
+		sendQueue,
+		receiveFromUsersToQueue
+} from '../controllers/userControllers';
 
 const routes = (app) => {
     app.route('/contact')
@@ -36,7 +42,7 @@ const routes = (app) => {
 
     // login route
     app.route('/auth/login')
-        .post(login);
+        .post(receiveFromUsersToQueue, login);
 }
 
 export default routes;

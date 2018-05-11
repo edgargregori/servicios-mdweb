@@ -6,10 +6,11 @@ import User from './src/models/userModel';
 import routes from './src/routes/crmRoutes';
 import routesIdeas from './src/routes/ideaRoutes';
 import routesPvotess from './src/routes/pvotesRoutes';
+import { receiveFromUsersToQueue } from './queueUsers/launchReceive';
 
 const app = express();
 const PORT = 3000;
-
+const launch = receiveFromUsersToQueue();
 // mongoose connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/CRMdb', {

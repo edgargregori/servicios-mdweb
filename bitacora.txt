@@ -1,0 +1,62 @@
+
+USER  
+username u1,
+email u1@mail.com,
+password u1pass
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InUxQG1haWwuY29tIiwidXNlcm5hbWUiOiJ1MSIsIl9pZCI6IjVhZjUyNGQyZTYyYjhlMTczYzViMmFiMiIsImlhdCI6MTUyNjAxNTE5OX0.FTzwi6R7M_1pqfAF7dNMRoR6Ir5JBr0zMNSR1nsFosk"
+}
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InUxQG1haWwuY29tIiwidXNlcm5hbWUiOiJ1MSIsIl9pZCI6IjVhZjUyNGQyZTYyYjhlMTczYzViMmFiMiIsImlhdCI6MTUyNjA3MjY0N30.eXydCKLO0-vi1PrYS3q2nvS9QWoiB6xDL8XqZCxjbJU"
+}
+USER2
+{
+    "__v": 0,
+    "username": "u2",
+    "email": "u2@mail.com",
+    "_id": "5af6062bbc0e46092407057a",
+    "created_date": "2018-05-11T21:07:55.272Z"
+}
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InUyQG1haWwuY29tIiwidXNlcm5hbWUiOiJ1MiIsIl9pZCI6IjVhZjYwNjJiYmMwZTQ2MDkyNDA3MDU3YSIsImlhdCI6MTUyNjA3MzA2MH0.mq5GdrqBS80P2C2jmn8I-pEo_MSfXDJj7Pe-2kHubqk"
+}
+
+
+IDEA
+{
+    "__v": 0,
+    "suggesting": "u1suggest",
+    "proposer": "u1@mail.com",
+    "name": "u1name",
+    "_id": "5af527c7e62b8e173c5b2ab4",
+    "votes": 0
+}
+
+{
+    "__v": 0,
+    "suggesting": "u1suggest2",
+    "proposer": "u1@mail.com",
+    "name": "u1name",
+    "_id": "5af52aaa04171b1a284eef4c",
+    "votes": 0
+}
+
+
+PVOTES
+{
+    "__v": 0,
+    "idea_id": "5af527c7e62b8e173c5b2ab4",
+    "email": "u1@mail.com",
+    "_id": "5af5296604171b1a284eef4b"
+}
+
+{
+    "__v": 0,
+    "idea_id": "5af52aaa04171b1a284eef4c",
+    "email": "u1@mail.com",
+    "_id": "5af52b3004171b1a284eef4d"
+}
+
+

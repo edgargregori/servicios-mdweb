@@ -4,6 +4,7 @@ import {
     getPvotesWithID, 
     updatePvotes,
     deletePvotes,
+		deleteAllPvotes,
 		sendFromPvotesToQueueToStat
 } from '../controllers/pvotesController';
 import { login, register, loginRequired, sendQueue} from '../controllers/userControllers';
@@ -34,6 +35,9 @@ const routesPvotess = (app) => {
     // delete request
     .delete(deletePvotes);
     //.delete(loginRequired, deletePvotes);
+
+		app.route('/pvotes/delete/all')
+		.get(deleteAllPvotes);
 
     // registration route
     app.route('/auth/register')

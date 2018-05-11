@@ -8,47 +8,56 @@ const Pvotes = mongoose.model('Pvotes', PvotesSchema);
 export const addNewPvotes = (req, res) => {
     let newPvotes = new Pvotes(req.body);
 
-    newPvotes.save((err, contact) => {
+    newPvotes.save((err, pvotes) => {
         if (err) {
             res.send(err);
         }
-        res.json(contact);
+        res.json(pvotes);
     });
 };
 
 export const getPvotess = (req, res) => {
-    Pvotes.find({}, (err, contact) => {
+    Pvotes.find({}, (err, pvotes) => {
         if (err) {
             res.send(err);
         }
-        res.json(contact);
+        res.json(pvotes);
     });
 };
 
 export const getPvotesWithID = (req, res) => {
-    Pvotes.findById(req.params.contactId, (err, contact) => {
+    Pvotes.findById(req.params.pvotesId, (err, pvotes) => {
         if (err) {
             res.send(err);
         }
-        res.json(contact);
+        res.json(pvotes);
     });
 }
 
 export const updatePvotes = (req, res) => {
-    Pvotes.findOneAndUpdate({ _id: req.params.contactId}, req.body, { new: true }, (err, contact) => {
+    Pvotes.findOneAndUpdate({ _id: req.params.pvotesId}, req.body, { new: true }, (err, pvotes) => {
         if (err) {
             res.send(err);
         }
-        res.json(contact);
+        res.json(pvotes);
     })
 }
 
 export const deletePvotes = (req, res) => {
-    Pvotes.remove({ _id: req.params.contactId }, (err, contact) => {
+    Pvotes.remove({ _id: req.params.pvotesId }, (err, pvotes) => {
         if (err) {
             res.send(err);
         }
-        res.json({ message: 'Successfully deleted contact'});
+        res.json({ message: 'Successfully deleted pvotes'});
+    })
+}
+
+export const deleteAllPvotes = (req, res) => {
+    Pvotes.remove({}, (err, pvotes) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json({ message: 'Successfully deleted all pvotes'});
     })
 }
 
