@@ -53,7 +53,7 @@ Explicacion
 	
 Salidas
 a)Esperando mensaje de la cola desde Users
-$ ./receive_logs_dominio.js "*.users.*"
+$ ./receive_logs_dominio.js "\*.users.\*"
 
 b)REQ
 $ curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -i 'http://34.205.63.101:3000/auth/register' --data 'username=egpc&email=egpc%40mail.com&password=egpc12345'
@@ -82,3 +82,18 @@ b) Lista de ideas:
 $ curl -X GET -H 'Content-Type: application/x-www-form-urlencoded' -H 'Authorization: JWT <token>' -i 'http://34.205.63.101:3000/idea'
 
 
+METODOS ideaController.js
+
+receiveFromIdeaToQueue:
+	Recibe de Stat de la cola emitida por stat("idea.#")
+
+sendQueueFromStat
+	Envia de Idea en la cola y luego a stat("\*.\*.stat")
+
+METODOS statController.js
+
+receiveFromStat:
+	Recibe de Stat de la cola emitida por stat("\*.\*.stat")
+
+sendQueueFromStatToIdea
+	Envia de Stat a la cola y luego a idea ("idea.#")

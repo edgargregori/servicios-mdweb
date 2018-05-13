@@ -86,7 +86,7 @@ export const sendQueue = (req, res, next) => {
    next();
 }
 
-///*
+/*
 var exec = require('child_process').exec;
 
 export const receiveFromUsersToQueue = (req, res, next) => {
@@ -103,7 +103,7 @@ export const receiveFromUsersToQueue = (req, res, next) => {
 	});
 	next();	
 }
-//*/
+*/
 	//var child = exec('node ./commands/server.js');
 	//child.stdout.on('data', function(data) {
 	//    console.log('stdout: ' + data);

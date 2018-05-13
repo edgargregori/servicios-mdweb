@@ -3,14 +3,14 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import jsonwebtoken from 'jsonwebtoken';
 import User from './src/models/userModel';
-import routes from './src/routes/crmRoutes';
+//import routes from './src/routes/crmRoutes';
 import routesIdeas from './src/routes/ideaRoutes';
 import routesPvotess from './src/routes/pvotesRoutes';
-import { receiveFromUsersToQueue } from './queueUsers/launchReceive';
+//import { receiveFromUsersToQueue } from './queueUsers/launchReceive';
 
 const app = express();
 const PORT = 3000;
-const launch = receiveFromUsersToQueue();
+//const launch = receiveFromUsersToQueue();
 // mongoose connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/CRMdb', {
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
     }
 });
 
-routes(app);
+//routes(app);
 routesIdeas(app);
 routesPvotess(app);
 

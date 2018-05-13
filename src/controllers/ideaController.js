@@ -61,15 +61,51 @@ export const deleteAllIdea = (req, res) => {
     })
 }
 
+/*
+var exec = require('child_process').exec;
 
-export const sendQueueFromIdea = (req, res, next) => {
+export const receiveFromStat = (req, res, next) => {
+	console.log(req.body);
+	var child = exec('node ./queueUsers/receive_logs_dominio.js "*.*.stat"');
+	child.stdout.on('data', function(data) {
+	    console.log('stdout: ' + data);
+	});
+	child.stderr.on('data', function(data) {
+	    console.log('stdout: ' + data);
+	});
+	child.on('close', function(code) {
+	    console.log('closing code: ' + code);
+	});
+	next();	
+}
+*/
+
+///*
+export const receiveFromIdeaToQueue = (req, res, next) => {
+	console.log(req.body);
+	var child = exec('node ./queueUsers/receive_logs_dominio.js "idea.#"');
+	child.stdout.on('data', function(data) {
+	    console.log('stdout: ' + data);
+	});
+	child.stderr.on('data', function(data) {
+	    console.log('stdout: ' + data);
+	});
+	child.on('close', function(code) {
+	    console.log('closing code: ' + code);
+	});
+	next();	
+}
+//*/
+
+export const sendQueueFromStat = (req, res, next) => {
 //var amqp = require('amqplib/callback_api');
   //const newUser = new User(req.body);
 	amqp.connect('amqp://localhost', function(err, conn) {
 	  conn.createChannel(function(err, ch) {
 	    var ex = 'topic_logs';
 	    //var args = process.argv.slice(2);
-			var args = ["*.users.*", "Lista ideas from ideaController.js: "];
+			//var args = ["idea.#", "Actualizar Votos: from idea to stat(statController.js:) "];
+			var args = ["*.*.stat", "Actualizar Votos: from idea(ideaController) to stat(statController.js:) "];
 			//var args = ["*.users.*", "Lista ideas: ", newUser];
 	    var msg = args.slice(1).join(' ') || 'ideaController: Mmmmm..!';
 	    var key = (args.length > 0) ? args[0] : 'idea.users.stat';
