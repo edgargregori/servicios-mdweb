@@ -2,6 +2,8 @@
 
 var amqp = require('amqplib/callback_api');
 
+var exec = require('child_process').exec;
+
 var args = process.argv.slice(2);
 
 if (args.length == 0) {
@@ -20,10 +22,23 @@ amqp.connect('amqp://localhost', function(err, conn) {
 
       args.forEach(function(key) {
         ch.bindQueue(q.queue, ex, key);
+				//console.log("key:" + key);
       });
 
       ch.consume(q.queue, function(msg) {
         console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
+	    		console.log('routing:  http://localhost/stat/vote');
+					var child = exec('ls ');
+					child.stdout.on('data', function(data) {
+	    		console.log('stdout: ' + data);
+					});
+					var child2 = exec('ls');
+					child.stderr.on('data', function(data) {
+	    			console.log('stdout: ' + data);
+					});
+					child.on('close', function(code) {
+	    			console.log('closing code: ' + code);
+					});
 				const mensaje = "Bye from queueUsers/receive_logs_dominio.js";
 				console.log("....: ", mensaje)
       }, {noAck: true});

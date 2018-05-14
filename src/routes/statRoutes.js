@@ -5,15 +5,21 @@ import {
     updateStat,
     deleteStat,
 		deleteAllStat,
-		receiveFromStat,
+		//receiveFromStat,
 		sendQueueFromStatToIdea
 
 } from '../controllers/statController';
 import { login, register, loginRequired, deleteAllPvotes, sendQueue, receiveFromUsersToQueue} from '../controllers/userControllers';
 //sendQueuFromStat: from Idea to Queul to receiveFromUsersToQueue
 const routesStats = (app) => {
-		app.route('/stat/vote/:ideaId')
-			  .get(receiveFromIdeaToQueue, sendQueueFromStat, loginRequired);
+		app.route('/stat/vote')
+			  .get((req, res, next) => {
+        // middleware
+        console.log(`Request from: ${req.originalUrl}`)
+        console.log(`Request type: ${req.method}`)
+        next();
+    	}, sendQueueFromStatToIdea);
+			  //.get(receiveFromIdeaToQueue, sendQueueFromStatToIdea, loginRequired);
 		//app.route('/stat/delete/all')
 	 //		  .get(deleteAllStat);
 	}

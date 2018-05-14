@@ -5,23 +5,20 @@ import {
     updateIdea,
     deleteIdea,
 		deleteAllIdea,
-		sendQueueFromStat, 
-		receiveFromIdeaToQueue
+		getPvotes,
+		sendQueueFromIdeaToStat 
+		//receiveFromIdeaToQueue
 } from '../controllers/ideaController';
 import { login, register, loginRequired, deleteAllPvotes, sendQueue} from '../controllers/userControllers';
 //sendQueuFromIdea: from Idea to Queue to receiveFromUsersToQueue(-->stat)
 const routesIdeas = (app) => {
-		//Action vote
-		app.route('/idea/vote/:ideaId')
-			  .get(receiveFromIdeaToQueue, sendQueueFromStat, loginRequired);
-
     app.route('/idea')
     .get((req, res, next) => {
         // middleware
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
-    }, sendQueueFromStat, loginRequired, getIdeas)
+    }, sendQueueFromIdeaToStat, loginRequired, getIdeas)
     //}, sendQueueFromStat, receiveFromUsersToQueue, loginRequired, getIdeas)
     //}, getIdeas)
     
@@ -44,7 +41,22 @@ const routesIdeas = (app) => {
     //.delete(loginRequired, deleteIdea);
 
 		app.route('/idea/delete/all')
-			  .get(deleteAllIdea);
+    	.get((req, res, next) => {
+        // middleware
+        console.log(`Request from: ${req.originalUrl}`)
+        console.log(`Request type: ${req.method}`)
+        next();
+    }, deleteAllIdea);
+		//Action vote
+    app.route('/vote/:ideaId')
+    	.get((req, res, next) => {
+        // middleware
+        console.log(`Request from: ${req.originalUrl}`)
+        console.log(`Request type: ${req.method}`)
+        next();
+    	}, sendQueueFromIdeaToStat, getPvotes)
+			.post(sendQueueFromIdeaToStat, getPvotes);
+			  //.get(receiveFromIdeaToQueue, sendQueueFromStat, loginRequired);
 
     // registration route
     app.route('/auth/register')

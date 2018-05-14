@@ -7,10 +7,14 @@ import User from './src/models/userModel';
 import routesIdeas from './src/routes/ideaRoutes';
 import routesPvotess from './src/routes/pvotesRoutes';
 //import { receiveFromUsersToQueue } from './queueUsers/launchReceive';
+import { receiveFromStat } from './queueUsers/receiveFromStat';
+import { receiveFromIdea } from './queueUsers/receiveFromIdea';
 
 const app = express();
 const PORT = 3000;
 //const launch = receiveFromUsersToQueue();
+const launchReceiveFromIdea = receiveFromStat();
+const launchReceiveFromStat = receiveFromIdea();
 // mongoose connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/CRMdb', {

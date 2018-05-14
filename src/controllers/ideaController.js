@@ -61,6 +61,16 @@ export const deleteAllIdea = (req, res) => {
     })
 }
 
+export const getPvotes = (req, res) => {
+    Idea.findById(req.params.ideaId, (err, idea) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(idea);
+    });
+}
+
+
 /*
 var exec = require('child_process').exec;
 
@@ -80,8 +90,10 @@ export const receiveFromStat = (req, res, next) => {
 }
 */
 
-///*
-export const receiveFromIdeaToQueue = (req, res, next) => {
+/*
+//Oficial
+var exec = require('child_process').exec;
+export const receiveFromIdea = (req, res, next) => {
 	console.log(req.body);
 	var child = exec('node ./queueUsers/receive_logs_dominio.js "idea.#"');
 	child.stdout.on('data', function(data) {
@@ -95,17 +107,26 @@ export const receiveFromIdeaToQueue = (req, res, next) => {
 	});
 	next();	
 }
-//*/
+*/
 
-export const sendQueueFromStat = (req, res, next) => {
+export const sendQueueFromIdeaToStat = (req, res, next) => {
 //var amqp = require('amqplib/callback_api');
-  //const newUser = new User(req.body);
+	const id = req.params.ideaId;
+	console.log(id); 
+  //let idea = new Idea(req.params.ideaId);
+  let newIdea = new Idea(req.body);
+	console.log(newIdea.toJSON()); 
+  //let ideaF = Idea.findById(req.params.ideaId);
+  let idea = Idea.findById(id);
+	//console.log(idea); 
+	//console.log(idea.JSON.parse()); 
+  //const idea = req.body;
 	amqp.connect('amqp://localhost', function(err, conn) {
 	  conn.createChannel(function(err, ch) {
 	    var ex = 'topic_logs';
 	    //var args = process.argv.slice(2);
 			//var args = ["idea.#", "Actualizar Votos: from idea to stat(statController.js:) "];
-			var args = ["*.*.stat", "Actualizar Votos: from idea(ideaController) to stat(statController.js:) "];
+			var args = ["*.*.stat", "Actualizar Votos: from idea(ideaController) to stat(statController.js:) ", idea];
 			//var args = ["*.users.*", "Lista ideas: ", newUser];
 	    var msg = args.slice(1).join(' ') || 'ideaController: Mmmmm..!';
 	    var key = (args.length > 0) ? args[0] : 'idea.users.stat';

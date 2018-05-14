@@ -3,7 +3,8 @@ import { IdeaSchema } from '../models/ideaModel';
 
 var amqp = require('amqplib/callback_api');
 
-///*
+/*
+// Oficial
 var exec = require('child_process').exec;
 
 export const receiveFromStat = (req, res, next) => {
@@ -21,7 +22,7 @@ export const receiveFromStat = (req, res, next) => {
 	});
 	next();	
 }
-//*/
+*/
 
 /*
 export const receiveFromIdea = (req, res, next) => {
@@ -41,7 +42,8 @@ export const receiveFromIdea = (req, res, next) => {
 }
 */
 
-//*/
+//*
+// Oficial
 export const sendQueueFromStatToIdea = (req, res, next) => {
 	//var amqp = require('amqplib/callback_api');
   //const newUser = new User(req.body);
