@@ -18,17 +18,18 @@ amqp.connect('amqp://localhost', function(err, conn) {
     ch.assertExchange(ex, 'topic', {durable: false});
 
     ch.assertQueue('', {exclusive: true}, function(err, q) {
-      console.log(' [*] logs from receive QueueStat 1: *.*.stat. To exit press CTRL+C');
+      console.log(' [*] idea.# logs from receive 2. To exit press CTRL+C');
 
       args.forEach(function(key) {
         ch.bindQueue(q.queue, ex, key);
 				//console.log("key:" + key);
       });
+
       ch.consume(q.queue, function(msg) {
-        console.log(" *.*.stat receibe 1:  [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-	    		console.log('receuve queue 1:  http://localhost/stat/vote');
-	var child = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/stat" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 
-					//var child = exec('ls ');
+        console.log(" [x] idea.# %s: '%s'", msg.fields.routingKey, msg.content.toString());
+	    		console.log('receive queue idea(Pvotes) 2:  http://localhost/stat/vote');
+					//var child = exec('echo "receive_logs_2"');
+	var child = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/idea" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 
 					child.stdout.on('data', function(data) {
 	    		console.log('stdout: ' + data);
 					});

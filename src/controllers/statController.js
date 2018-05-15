@@ -1,8 +1,73 @@
 import mongoose from 'mongoose';
-import { IdeaSchema } from '../models/ideaModel';
+import { StatSchema } from '../models/statModel';
 
 var amqp = require('amqplib/callback_api');
+const Stat = mongoose.model('Stat', StatSchema);
 
+export const addNewStat = (req, res) => {
+    let newStat = new Stat(req.body);
+
+    newStat.save((err, stat) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(stat);
+    });
+};
+
+export const getStats = (req, res) => {
+    Stat.find({}, (err, idea) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(idea);
+    });
+};
+
+export const getStatWithID = (req, res) => {
+    Stat.findById(req.params.ideaId, (err, stat) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(stat);
+    });
+}
+
+export const updateStat = (req, res) => {
+    Stat.findOneAndUpdate({ _id: req.params.statId}, req.body, { new: true }, (err, stat) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(stat);
+    })
+}
+
+export const deleteStat = (req, res) => {
+    Stat.remove({ _id: req.params.statId }, (err, stat) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json({ message: 'Successfully deleted stat'});
+    })
+}
+
+export const deleteAllStat = (req, res) => {
+    Stat.remove({}, (err, stat) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json({ message: 'Successfully deleted all Stats'});
+    })
+}
+
+export const getPvotes = (req, res) => {
+    Stat.findById(req.params.statId, (err, stat) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(stat);
+    });
+}
 /*
 // Oficial
 var exec = require('child_process').exec;

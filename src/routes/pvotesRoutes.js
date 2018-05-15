@@ -16,12 +16,13 @@ const routesPvotess = (app) => {
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
-    },loginRequired, getPvotess)
-    //}, getPvotess)
+    //},loginRequired, getPvotess)
+    }, sendFromPvotesToQueueToStat, getPvotess)
     
     // POST endpoint
     //.post(addNewPvotes);
-    .post(sendFromPvotesToQueueToStat, loginRequired, addNewPvotes);
+    //.post(sendFromPvotesToQueueToStat, loginRequired, addNewPvotes);
+    .post(sendFromPvotesToQueueToStat, addNewPvotes);
 
     app.route('/pvotes/:ideaId')
     // get specific pvotes

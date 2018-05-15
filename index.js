@@ -6,15 +6,18 @@ import User from './src/models/userModel';
 //import routes from './src/routes/crmRoutes';
 import routesIdeas from './src/routes/ideaRoutes';
 import routesPvotess from './src/routes/pvotesRoutes';
+import routesStats from './src/routes/statRoutes';
 //import { receiveFromUsersToQueue } from './queueUsers/launchReceive';
-import { receiveFromStat } from './queueUsers/receiveFromStat';
-import { receiveFromIdea } from './queueUsers/receiveFromIdea';
+import { launchQueueStat } from './queueUsers/launchQueueStat';
+//import { receiveFromIdea } from './queueUsers/receiveFromIdea';
+import { launchQueuePvotes } from './queueUsers/launchQueuePvotes';
 
 const app = express();
 const PORT = 3000;
 //const launch = receiveFromUsersToQueue();
-const launchReceiveFromIdea = receiveFromStat();
-const launchReceiveFromStat = receiveFromIdea();
+const queueStat = launchQueueStat();
+//const launchReceiveFromStat = receiveFromIdea();
+const queuePvotes = launchQueuePvotes();
 // mongoose connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/CRMdb', {
@@ -42,6 +45,7 @@ app.use((req, res, next) => {
 //routes(app);
 routesIdeas(app);
 routesPvotess(app);
+routesStats(app);
 
 // serving static files
 app.use(express.static('public'));

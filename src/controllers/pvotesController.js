@@ -64,11 +64,15 @@ export const deleteAllPvotes = (req, res) => {
 export const sendFromPvotesToQueueToStat = (req, res, next) => {
 //var amqp = require('amqplib/callback_api');
   //const newUser = new User(req.body);
+	const ideaId = req.params.ideaId;
+	console.log(ideaId); 
+  //let newIdea = new Idea(req.body);
+	//console.log(newIdea.toJSON()); 
 	amqp.connect('amqp://localhost', function(err, conn) {
-	  conn.createChannel(function(err, ch) {
+		  conn.createChannel(function(err, ch) {
 	    var ex = 'topic_logs';
 	    //var args = process.argv.slice(2);
-			var args = ["*.*.stat", "Actualizar votos: "];
+			var args = ["*.*.stat", "Actualizar votos: ", ideaId];
 			//var args = ["*.users.*", "Lista ideas: ", newUser];
 	    var msg = args.slice(1).join(' ') || 'pvotesController: Mmmmm..!';
 	    var key = (args.length > 0) ? args[0] : 'idea.users.stat';

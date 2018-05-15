@@ -18,8 +18,8 @@ const routesIdeas = (app) => {
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
-    }, sendQueueFromIdeaToStat, loginRequired, getIdeas)
-    //}, sendQueueFromStat, receiveFromUsersToQueue, loginRequired, getIdeas)
+    }, loginRequired, getIdeas)
+    //}, sendQueueFromIdeaToStat, receiveFromUsersToQueue, loginRequired, getIdeas)
     //}, getIdeas)
     
     // POST endpoint

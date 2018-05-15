@@ -7,6 +7,10 @@ export const PvotesSchema = new Schema({
       type: String,
       required: true
 		},
+//    user_id: {
+//      type: Number,
+//      required: true
+//    },
     email: {
         type: String,
         required: true
@@ -16,10 +20,6 @@ export const PvotesSchema = new Schema({
 //      type: String,
 //      required: true
 //    }
-//   user_id: {
-//      type: Number,
-//      required: true
-//    },
 //    idea_id: {
 //      type: Number,
 //      required: true
