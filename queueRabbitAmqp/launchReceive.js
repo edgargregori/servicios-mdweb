@@ -3,7 +3,7 @@ var exec = require('child_process').exec;
 export const receiveFromUsersToQueue = (req, res, next) => {
 	console.log("req: ");
 	//console.log(req.body);
-  var child = exec('node ./queueUsers/receive_logs_dominio.js "*.users.*"');
+  var child = exec('node ./queueRabbitAmqp/receive_logs_dominio.js "*.users.*"');
   child.stdout.on('data', function(data) {
       console.log('stdout: ' + data);
   });

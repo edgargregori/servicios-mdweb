@@ -8,10 +8,10 @@ import { PvotesSchema } from './src/models/pvotesModel';
 import routesIdeas from './src/routes/ideaRoutes';
 import routesPvotess from './src/routes/pvotesRoutes';
 import routesStats from './src/routes/statRoutes';
-//import { receiveFromUsersToQueue } from './queueUsers/launchReceive';
-import { launchQueueStat } from './queueUsers/launchQueueStat';
-//import { receiveFromIdea } from './queueUsers/receiveFromIdea';
-import { launchQueuePvotes } from './queueUsers/launchQueuePvotes';
+//import { receiveFromUsersToQueue } from './queueRabbitAmqp/launchReceive';
+import { launchQueueStat } from './queueRabbitAmqp/launchQueueStat';
+//import { receiveFromIdea } from './queueRabbitAmqp/receiveFromIdea';
+import { launchQueuePvotes } from './queueRabbitAmqp/launchQueuePvotes';
 
 const winston = require('winston');
 const error = require('./src/middleware/error');

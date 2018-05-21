@@ -12,7 +12,7 @@ if ( req != null && next != null ) {
 	}
 	if ( next != null )
 		next();	
-	var child = exec('node ./queueUsers/receive_logs_dominio2.js "idea.#"');
+	var child = exec('node ./queueRabbitAmqp/receive_logs_dominio2.js "idea.#"');
 	child.stdout.on('data', function(data) {
 		  //console.log('LLamar a: http://34.205.63.101/stat/vote');
 	    console.log('QueuePvotes: LLamar a: http://localhost/stat/vote');
@@ -26,7 +26,7 @@ if ( req != null && next != null ) {
 	child.on('close', function(code) {
 	    console.log('closing code: ' + code);
 	});
-	var childToIdea = exec('node ./queueUsers/receive_logs_dominio2.js "idea.#"');
+	var childToIdea = exec('node ./queueRabbitAmqp/receive_logs_dominio2.js "idea.#"');
 
 /*
 			var childToStat = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/idea" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 

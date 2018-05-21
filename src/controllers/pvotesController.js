@@ -29,14 +29,6 @@ export const patchPvotes = (req, res, next) => {
 	const ideaId = req.params.ideaId;
 	console.log("-------------------<<<<IDEA ID >>>>>>--------------");
 	console.log(ideaId);
-	//const userId = req.body.userId;
-	//const voter = req.body.voter;
-	//const idea = req.body.idea;
-	//var pvotes = toPvotes(req.params, req.body);
-  //if (err) {
-  //    res.send(err);
-  //}
-  //res.json(pvotes);
 
 	if (vote) {
 	  //let newPvotes = new Pvotes(toPvotes(req.params, req.body));
@@ -144,3 +136,14 @@ export const sendFromPvotesToQueueToStat = (req, res, next) => {
 	});
    next();
 }
+
+// from patch pvotes
+	//const userId = req.body.userId;
+	//const voter = req.body.voter;
+	//const idea = req.body.idea;
+	//var pvotes = toPvotes(req.params, req.body);
+  //if (err) {
+  //    res.send(err);
+  //}
+  //res.json(pvotes);
+

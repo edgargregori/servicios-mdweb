@@ -94,56 +94,6 @@ export const getVotes = (req, res) => {
     });
 };
 
-/*
-export const getIdeas = (req, res) => {
-		const userId = req.params.userId;
-    Idea.find({}, (err, idea) => {
-        if (err) {
-            res.send(err);
-        }
-			const ideasUser = idea.filter(idea => idea.proposer == userId);
-        res.json(idea);
-    });
-};
-*/
-
-/*
-var exec = require('child_process').exec;
-
-export const receiveFromStat = (req, res, next) => {
-	console.log(req.body);
-	var child = exec('node ./queueUsers/receive_logs_dominio.js "*.*.stat"');
-	child.stdout.on('data', function(data) {
-	    console.log('stdout: ' + data);
-	});
-	child.stderr.on('data', function(data) {
-	    console.log('stdout: ' + data);
-	});
-	child.on('close', function(code) {
-	    console.log('closing code: ' + code);
-	});
-	next();	
-}
-*/
-
-/*
-//Oficial
-var exec = require('child_process').exec;
-export const receiveFromIdea = (req, res, next) => {
-	console.log(req.body);
-	var child = exec('node ./queueUsers/receive_logs_dominio.js "idea.#"');
-	child.stdout.on('data', function(data) {
-	    console.log('stdout: ' + data);
-	});
-	child.stderr.on('data', function(data) {
-	    console.log('stdout: ' + data);
-	});
-	child.on('close', function(code) {
-	    console.log('closing code: ' + code);
-	});
-	next();	
-}
-*/
 
 export const sendQueueFromIdeaToStat = (req, res, next) => {
 //var amqp = require('amqplib/callback_api');

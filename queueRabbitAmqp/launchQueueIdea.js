@@ -12,7 +12,7 @@ if ( req != null && next != null ) {
 	}
 	if ( next != null )
 		next();	
-	var child = exec('node ./queueUsers/receive_logs_dominio2.js "idea.#"');
+	var child = exec('node ./queueRabbitAmqp/receive_logs_dominio2.js "idea.#"');
 	child.stdout.on('data', function(data) {
 	    console.log('stdout: ' + data);
 	});

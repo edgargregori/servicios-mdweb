@@ -14,7 +14,7 @@ export const launchQueueStat = (req, res, next) => {
 		next();	
 	}
 	//const req = req.body;
-	var child = exec('node ./queueUsers/receive_logs_dominio.js "*.*.stat"');
+	var child = exec('node ./queueRabbitAmqp/receive_logs_dominio.js "*.*.stat"');
 	child.stdout.on('data', function(data) {
 	    //console.log('LLamar a: http://34.205.63.101/stat/vote');
 	    console.log('QueueStat LLamar a: http://localhost/stat');
