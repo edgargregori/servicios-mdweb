@@ -1,3 +1,122 @@
+Mongo set locale LANG
+export LC_ALL=C
+
+20-mayo-18
+i> db.pvotes.find().pretty();
+{
+        "_id" : ObjectId("5b016c7de2921e40a818e98f"),
+        "ideaId" : "5af527c7e62b8e173c5b2ab4",
+        "voterId" : "5aff96b28f54fa4139162ba4",
+        "idea" : "u1suggest",
+        "voter" : "u1@mail.com",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01703bd5aa2542da569d51"),
+        "voterId" : "5aff96b28f54fa4139162ba4",
+        "voter" : "u1@mail.com",
+        "idea" : "u1suggest2",
+        "ideaId" : "5af52aaa04171b1a284eef4c",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01728995c8fe449300ef58"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest2",
+        "ideaId" : "5af52aaa04171b1a284eef4c",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b017362cf67bf45195fd24f"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest",
+        "ideaId" : "5af52aaa04171b1a284eef4c",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01b85cb610385e8db6e072"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01bbcda9e5b26015772a20"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01bcd41d654860a532df17"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01bd0ebb936b6107c34271"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01bd3cfdb4586169386b70"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01be016c594761e796c311"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01bff2c3956162b64dc3f9"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01c0599e89b9632427a7f4"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01c2b83b68b463fb013fea"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+{
+        "_id" : ObjectId("5b01c38242d33164814e176d"),
+        "voterId" : "5af8f3b480f99b40bcb5c6a5",
+        "voter" : "u3@mail.com",
+        "idea" : "u1suggest3",
+        "ideaId" : "5aff96b28f54fa4139162ba4",
+        "__v" : 0
+}
+
+20-mayo-18
 
 USER  
 username u1,

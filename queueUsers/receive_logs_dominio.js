@@ -13,7 +13,7 @@ if (args.length == 0) {
 
 amqp.connect('amqp://localhost', function(err, conn) {
   conn.createChannel(function(err, ch) {
-    var ex = 'topic_logs';
+    var ex = 'topic_ideas';
 
     ch.assertExchange(ex, 'topic', {durable: false});
 
@@ -25,9 +25,19 @@ amqp.connect('amqp://localhost', function(err, conn) {
 				//console.log("key:" + key);
       });
       ch.consume(q.queue, function(msg) {
+				//msg.content.forEach(function(element) {
+				//	console.log(element);
+				//});
+				console.log(typeof msg.content);
+				ideaId = msg.content.toString();
+				//console.log(msg.content.toArray());
+				//RECIBIDO ideaId: Actualizar Votos: from idea(ideaController) to stat(statController.js:)  5af
+				//527c7e62b8e173c5b2ab4
+				console.log("RECIBIDO ideaId: %s " , msg.content.toString());
+        console.log(" *.*.stat receibe 1:  [x] %s: ", msg.fields.routingKey);
         console.log(" *.*.stat receibe 1:  [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-	    		console.log('receuve queue 1:  http://localhost/stat/vote');
-	var child = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/stat" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 
+	    		console.log('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/v1/stats/' + ideaId + '/pvotes" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"');
+	var child = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/v1/stats/' + ideaId + '/pvotes" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 
 					//var child = exec('ls ');
 					child.stdout.on('data', function(data) {
 	    		console.log('stdout: ' + data);

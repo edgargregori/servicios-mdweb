@@ -5,6 +5,7 @@ import {
     updatePvotes,
     deletePvotes,
 		deleteAllPvotes,
+		patchPvotes,
 		sendFromPvotesToQueueToStat
 } from '../controllers/pvotesController';
 import { login, register, loginRequired, sendQueue} from '../controllers/userControllers';
@@ -18,11 +19,11 @@ const routesPvotess = (app) => {
         next();
     //},loginRequired, getPvotess)
     }, sendFromPvotesToQueueToStat, getPvotess)
+    .post(sendFromPvotesToQueueToStat, addNewPvotes);
     
     // POST endpoint
     //.post(addNewPvotes);
     //.post(sendFromPvotesToQueueToStat, loginRequired, addNewPvotes);
-    .post(sendFromPvotesToQueueToStat, addNewPvotes);
 
     app.route('/pvotes/:ideaId')
     // get specific pvotes

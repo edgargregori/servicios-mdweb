@@ -13,12 +13,13 @@ if (args.length == 0) {
 
 amqp.connect('amqp://localhost', function(err, conn) {
   conn.createChannel(function(err, ch) {
-    var ex = 'topic_logs';
+    var ex = 'topic_ideas';
 
     ch.assertExchange(ex, 'topic', {durable: false});
 
     ch.assertQueue('', {exclusive: true}, function(err, q) {
-      console.log(' [*] idea.# logs from receive 2. To exit press CTRL+C');
+      //console.log(' [*] idea.# logs from receive 2. To exit press CTRL+C');
+      console.log(' [*] Listen queue "IDEA" idea.# . To exit press CTRL+C');
 
       args.forEach(function(key) {
         ch.bindQueue(q.queue, ex, key);
@@ -29,7 +30,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
         console.log(" [x] idea.# %s: '%s'", msg.fields.routingKey, msg.content.toString());
 	    		console.log('receive queue idea(Pvotes) 2:  http://localhost/stat/vote');
 					//var child = exec('echo "receive_logs_2"');
-	var child = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/idea" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 
+	var child = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/v1/ideas" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 
 					child.stdout.on('data', function(data) {
 	    		console.log('stdout: ' + data);
 					});

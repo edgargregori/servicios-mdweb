@@ -1,5 +1,69 @@
 # servicios-mdweb
-Projecto del grupo ? 
+Projecto del grupo FacilitoParece 
+
+Para la realizacion de esta practica se utilizo: http://www.rabbitmq.com/tutorials/tutorial-five-javascript.html, que mediante topico o criterio de envio y recepcion de mensajes en una cola de RabbitMq, mediante el criterio: <idea><user><stat> permite crear 2 colas, una cola de trabajos enviados de idea y stat, y otra de "user" . 
+
+CONSULTAS MEDIANTE POSTMAN
+
+Action: crear idea
+1. http://34.205.63.101:3000/v1/ideas
+- Body: 
+	{ uggesting:u1suggest3
+		proposer:u1@mail.com
+		name:u1name
+	} 
+
+Action: votar idea
+2. http://34.205.63.101:3000/v1/idea/5af52aaa04171b1a284eef4c/votes
+- Params: ideaId.
+- Body: 
+{
+	action:true
+	voterId:5af8f3b480f99b40bcb5c6a5
+	voter:u1@mail.com
+	idea:u1suggest3
+}.
+- Respuesta (pvotes creado):
+{
+    "__v": 0,
+    "ideaId": "5af52aaa04171b1a284eef4c",
+    "voterId": "5af8f3b480f99b40bcb5c6a5",
+    "idea": "u1suggest3",
+    "voter": "u1@mail.com",
+    "_id": "5b020319cbe5df09f57cce21"
+}
+
+3. http://34.205.63.101:3000/v1/idea/5af52aaa04171b1a284eef4c/votes
+- Params: ideaId.
+- Body: 
+{
+	action:false
+	voterId:5af8f3b480f99b40bcb5c6a5
+	voter:u1@mail.com
+	idea:u1suggest3
+}.
+- Respuesta (pvotes eliminado de acuerdo a ideaId y voterId):
+{
+    "__v": 0,
+    "ideaId": "5af52aaa04171b1a284eef4c",
+    "voterId": "5af8f3b480f99b40bcb5c6a5",
+    "idea": "u1suggest3",
+    "voter": "u1@mail.com",
+    "_id": "5b020319cbe5df09f57cce21"
+}
+
+LANZAR PROCESOS PARALELOS: ESCUCHAR Y RECIBIR DE LA COLA (CONSUMIR)
+- Los archivos "receiveIdeas.js" y "receiveStats.js", se encargan de lanzarlos.
+
+PRODUCIR EVENTO VOTAR IDEA HACIA LA COLA Y CONSUMIDO POR STAT.
+- Luego de votar una idea ( "patchPvotes" ), se ejecuta "sendQueueFromIdeaToStat".
+- function "sendQueueFromIdeaToStat" en el archivo "ideaController.js".
+	Esta funcion envia  a la cola con un argumento args=["*.*.stat", ideaId]", el primer elemento para que escuche "stat", y el segundo enviamos el id de Idea.
+- Una vez que servicio stat escucha ( "*.*.stat" ), desencadena una llamada a la url: "http://api/v1/stats/" mediante POST, que se encarga de de realizar el calculo de votos ( "votes" ), y de actualizar ideas.
+- La anterior llamada, ejecuta dos funciones: "countPvotesFromIdea" y "sendToQueueFromStatToIdea". 
+- "countPvotesFromIdea": Mediante el "ideaId" contamos las ideas presentes en el model "Pvotes" ( votos de la idea ), y luego actualizamos el campo "votes" de "Idea". 
+- "sendToQueueFromStatToIdea": Envia mensaje a la cola con args:["idea.#", mensaje] de votos ( votes ) actualizados de la Idea, para que escuche la cola. 
+
 
 COMANDOS PARA CLONAR EL REPO Y ANIADIR TU RAMA(OPCIONAL).
 1. En la raiz de su proyecto:
@@ -97,3 +161,9 @@ receiveFromStat:
 
 sendQueueFromStatToIdea
 	Envia de Stat a la cola y luego a idea ("idea.#")
+
+
+
+
+
+

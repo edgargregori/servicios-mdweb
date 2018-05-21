@@ -16,7 +16,7 @@ if ( req != null && next != null ) {
 	child.stdout.on('data', function(data) {
 	    console.log('stdout: ' + data);
 	});
-	var childToStat = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/idea" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 
+//	var childToStat = exec('curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -i "http://34.205.63.101:3000/idea" --data "idea_id=122&email=eg2%40mail.com&user_id=12345"'); 
 	child.stderr.on('data', function(data) {
 	    console.log('stdout: ' + data);
 	});

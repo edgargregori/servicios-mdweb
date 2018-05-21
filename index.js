@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import jsonwebtoken from 'jsonwebtoken';
 import User from './src/models/userModel';
+import { PvotesSchema } from './src/models/pvotesModel';
 //import routes from './src/routes/crmRoutes';
 import routesIdeas from './src/routes/ideaRoutes';
 import routesPvotess from './src/routes/pvotesRoutes';
@@ -23,7 +24,12 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/CRMdb', {
     useMongoClient: true
 });
-
+/*
+mongoose.connection.on('open', function () {
+	console.log("MongoDb connected");
+	const Pvotes = mongoose.model('Pvotes', PvotesSchema);
+});
+*/
 // bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

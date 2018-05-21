@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
 import { IdeaSchema } from '../models/ideaModel';
+import { PvotesSchema } from '../models/pvotesModel';
 
 var amqp = require('amqplib/callback_api');
 
 const Idea = mongoose.model('Idea', IdeaSchema);
+const Pvotes = mongoose.model('Pvotes', PvotesSchema);
 
 export const addNewIdea = (req, res) => {
     let newIdea = new Idea(req.body);
@@ -70,6 +72,40 @@ export const getPvotes = (req, res) => {
     });
 }
 
+export const vote = (req, res) => {
+		//Buscar todas las ideas del usuario (usuarioid).
+    Idea.findById(userId, (err, idea) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(idea);
+    });
+}
+
+// Ideas votadas por un usuario idendificado por voterId
+export const getVotes = (req, res) => {
+		const voterId = req.params.voterId;
+    Pvotes.find({}, (err, pvotes) => {
+        if (err) {
+            res.send(err);
+        }
+			const pvotesUser = pvotes.filter(pvotes => pvotes.proposer == voterId);
+        res.json(pvotesUser);
+    });
+};
+
+/*
+export const getIdeas = (req, res) => {
+		const userId = req.params.userId;
+    Idea.find({}, (err, idea) => {
+        if (err) {
+            res.send(err);
+        }
+			const ideasUser = idea.filter(idea => idea.proposer == userId);
+        res.json(idea);
+    });
+};
+*/
 
 /*
 var exec = require('child_process').exec;
@@ -111,22 +147,23 @@ export const receiveFromIdea = (req, res, next) => {
 
 export const sendQueueFromIdeaToStat = (req, res, next) => {
 //var amqp = require('amqplib/callback_api');
-	const id = req.params.ideaId;
-	console.log(id); 
+	const ideaId = req.params.ideaId;
+	console.log('IDEAID:' + ideaId); 
   //let idea = new Idea(req.params.ideaId);
   let newIdea = new Idea(req.body);
 	console.log(newIdea.toJSON()); 
   //let ideaF = Idea.findById(req.params.ideaId);
-  let idea = Idea.findById(id);
+  let idea = Idea.findById(ideaId);
 	//console.log(idea); 
 	//console.log(idea.JSON.parse()); 
   //const idea = req.body;
 	amqp.connect('amqp://localhost', function(err, conn) {
 	  conn.createChannel(function(err, ch) {
-	    var ex = 'topic_logs';
+	    var ex = 'topic_ideas';
 	    //var args = process.argv.slice(2);
 			//var args = ["idea.#", "Actualizar Votos: from idea to stat(statController.js:) "];
-			var args = ["*.*.stat", "Actualizar Votos: from idea(ideaController) to stat(statController.js:) ", idea];
+			//var args = ["*.*.stat", "Actualizar Votos: from idea(ideaController) to stat(statController.js:) ", ideaId];
+			var args = ["*.*.stat", ideaId];
 			//var args = ["*.users.*", "Lista ideas: ", newUser];
 	    var msg = args.slice(1).join(' ') || 'ideaController: Mmmmm..!';
 	    var key = (args.length > 0) ? args[0] : 'idea.users.stat';

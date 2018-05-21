@@ -62,7 +62,7 @@ export const sendQueue = (req, res, next) => {
   const newUser = new User(req.body);
 	amqp.connect('amqp://localhost', function(err, conn) {
 	  conn.createChannel(function(err, ch) {
-	    var ex = 'topic_logs';
+	    var ex = 'topic_ideas';
 	    //var args = process.argv.slice(2);
 			var args = ["*.users.*", "From User to User: created: ", newUser];
 			//var args = ["*.*.stat", "Msg from Users(created) to Stat: ", newUser];

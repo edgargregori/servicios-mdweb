@@ -6,6 +6,7 @@ import {
     deleteStat,
 		deleteAllStat,
 		receiveFromStat,
+		countPvotesFromIdea,
 		sendQueueFromStatToIdea
 
 } from '../controllers/statController';
@@ -20,15 +21,29 @@ import {
 
 //sendQueuFromStat: from Idea to Queul to receiveFromUsersToQueue
 const routesStats = (app) => {
-
 ///*
-    app.route('/stat')
+    app.route('/v1/stats/:ideaId/pvotes')
     .get((req, res, next) => {
         // middleware
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
-    }, sendQueueFromStatToIdea, getStats)
+    }, countPvotesFromIdea, sendQueueFromStatToIdea)
+    //}, getStats)
+    
+    // POST endpoint
+    //.post(addNewStat);
+    .post(sendQueueFromStatToIdea, loginRequired, addNewStat);
+//*/
+
+///*
+    app.route('/stats')
+    .get((req, res, next) => {
+        // middleware
+        console.log(`Request from: ${req.originalUrl}`)
+        console.log(`Request type: ${req.method}`)
+        next();
+    }, getStats, sendQueueFromStatToIdea)
     //}, getStats)
     
     // POST endpoint

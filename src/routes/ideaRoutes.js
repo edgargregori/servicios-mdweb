@@ -5,20 +5,21 @@ import {
     updateIdea,
     deleteIdea,
 		deleteAllIdea,
-		getPvotes,
 		sendQueueFromIdeaToStat 
 		//receiveFromIdeaToQueue
 } from '../controllers/ideaController';
 import { login, register, loginRequired, deleteAllPvotes, sendQueue} from '../controllers/userControllers';
+import { getPvotess, patchPvotes} from '../controllers/pvotesController';
 //sendQueuFromIdea: from Idea to Queue to receiveFromUsersToQueue(-->stat)
 const routesIdeas = (app) => {
-    app.route('/idea')
+    app.route('/v1/ideas')
     .get((req, res, next) => {
         // middleware
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
-    }, loginRequired, getIdeas)
+    }, getIdeas)
+    //}, loginRequired, getIdeas)
     //}, sendQueueFromIdeaToStat, receiveFromUsersToQueue, loginRequired, getIdeas)
     //}, getIdeas)
     
@@ -27,7 +28,7 @@ const routesIdeas = (app) => {
     //.post(sendQueueFromIdea, loginRequired, addNewIdea);
     .post(loginRequired, addNewIdea);
 
-    app.route('/idea/:ideaId')
+    app.route('/v1/idea/:ideaId')
     // get specific idea
     .get( getIdeaWithID)
     //.get(loginRequired, getIdeaWithID)
@@ -40,34 +41,46 @@ const routesIdeas = (app) => {
     .delete(deleteIdea);
     //.delete(loginRequired, deleteIdea);
 
-		app.route('/idea/delete/all')
+		app.route('/v1/ideas/delete/all')
     	.get((req, res, next) => {
         // middleware
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
     }, deleteAllIdea);
-		//Action vote
-    app.route('/vote/:ideaId')
+		// proposer ~ email.
+		app.route('/v1/ideas/votes/:voterId')
     	.get((req, res, next) => {
         // middleware
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
         next();
-    	}, sendQueueFromIdeaToStat, getPvotes)
-			.post(sendQueueFromIdeaToStat, getPvotes);
-			  //.get(receiveFromIdeaToQueue, sendQueueFromStat, loginRequired);
+    }, getIdeas);
+	
+		//Action vote /ideas/idx/votes?action=vote
+//	/*
+    app.route('/v1/idea/:ideaId/votes')
+    	.get((req, res, next) => {
+        // middleware
+        console.log(`Request from: ${req.originalUrl}`)
+        console.log(`Request type: ${req.method}`)
+        next();
+    	}, getPvotess) //sendQueueFromIdeaToStat,
+			.post(patchPvotes, sendQueueFromIdeaToStat);//sendQueueFromIdeaToStat,
+			//.patch(sendQueueFromIdeaToStat, addNewPvotes);
+			  //.get(receiveFromIdeaToQueue, loginRequired);
+//	*/
 
     // registration route
-    app.route('/auth/register')
+    app.route('/v1/auth/register')
         //.post(register);
         .post(register, sendQueue);
 
     // login route
-    app.route('/auth/login')
+    app.route('/v1/auth/login')
         .post(login);
 
-		app.route('/user/delete/all')
+		app.route('/v1/user/delete/all')
 			.get(deleteAllPvotes);
 }
 
