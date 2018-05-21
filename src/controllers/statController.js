@@ -31,6 +31,7 @@ function updateIdea(ideaId, votes) {
     })
 };
 export const countPvotesFromIdea = (req, res, next) => {
+	try {
 		let votosIdea = {idea:"idx",votes:13};
 		//return votosIdea;
 		//const ideaId = "5af52aaa04171b1a284eef4c";
@@ -53,39 +54,15 @@ export const countPvotesFromIdea = (req, res, next) => {
 			updateIdea(ideaId, pvotes.length);
       res.json(pvotes);
 				next();
-		});
-/*
-			let countAll = countItems(all.count()); 
-			console.log("countIT " + countAll);	
-	
-		console.log("All: " +  all);
-		console.log("All length: " +  all.length);
-    var todos = Pvotes.find({ideaId: ideaId}, (err, pvotes) => {
-        if (err) {
-            res.send(err);
-        }
-			//console.log("pvotes%s",pvotes.length);
-			var cuantos = 0;
-			var pvotesIdea = pvotes.filter(function(pvotes) { 
-				if ( pvotes.ideaId === ideaId ) {
-					++cuantos;
-					console.log("iguales " + cuantos);
-				}
-				return pvotes;
-			});
-			console.log("pvotesIdea " + pvotesIdea);
-        //res.json(votosIdea);
-			var total = countItems(pvotes);        //res.json(pvotesIdea);
-			console.log("pvotesIdea total" + total);
-			//updateIdea(ideaId, pvotesIdea);
-        res.json(pvotes);
-        //res.json(total);
-				next();
-    });
-*/
-    //return idea;
-		//next();
+		}).count();
+		console.log("Votos: " + all);
+	}
+	catch (ex) {
+		//Log exception
+		next(err);
+	}
 };
+
 function countItems(pvotes) {
 			var count = 0;
 			for (var prop in pvotes) {

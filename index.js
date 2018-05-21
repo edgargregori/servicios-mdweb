@@ -13,7 +13,39 @@ import { launchQueueStat } from './queueUsers/launchQueueStat';
 //import { receiveFromIdea } from './queueUsers/receiveFromIdea';
 import { launchQueuePvotes } from './queueUsers/launchQueuePvotes';
 
+const winston = require('winston');
+const error = require('./src/middleware/error');
 const app = express();
+
+///*// Log transportado por winston.
+process.on('uncaughtException', (ex) => {
+	console.log('Error no capturado por express, si por winston.');
+	winston.error(ex.message, ex);
+	//process.exit(1);
+});
+
+//const winstonerr = 
+winston.handleExceptions(
+	new winston.transports.Console({ colorize: true, prettyPrint: true}),
+	new winston.transports.File({ filename: 'uncaughtExceptions.log'}));
+
+process.on('unhandledRejection', (ex) => {
+	console.log('Error de rechazo no manejado . NO por express, si por winston.');
+	winston.error(ex.message, ex);
+	//process.exit(1);
+	//throw ex;// manejado por winston y almacenado en uncaughtExceptions.log.
+});
+
+winston.add(winston.transports.File, { filename: 'winstonlog.log'});
+
+//const p = Promise.reject(new Error('Error: Fallo asyncrono.'));
+//p.then(() => console.log('Terminado'));//.catch();
+//await
+
+
+//throw new Error('Error fuera de express');
+//*/
+
 const PORT = 3000;
 //const launch = receiveFromUsersToQueue();
 const queueStat = launchQueueStat();
@@ -56,9 +88,20 @@ routesStats(app);
 // serving static files
 app.use(express.static('public'));
 
-app.get('/', (req, res) =>
-    res.send(`Node and express server is running on port ${PORT}`)
-);
+app.use(error);
+
+app.get('/', (err, req, res) => {
+	try{
+				//winston.log('error', err.message);
+				winston.error(err.message, err);
+				//throw new Error("No se pudo entrar a la aplicacion.")
+				//let error= new Error("No se pudo entrar a la aplicacion.")
+				//callback(error);
+    res.send(`Node and express server is running on port ${PORT}`);
+	} catch (e) {
+		console.log(e.name + ": " +e.message);
+	}
+});
 
 app.listen(PORT, () =>
     console.log(`your server is running on port ${PORT}`)

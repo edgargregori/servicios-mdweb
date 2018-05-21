@@ -14,6 +14,7 @@ import { getPvotess, patchPvotes} from '../controllers/pvotesController';
 const routesIdeas = (app) => {
     app.route('/v1/ideas')
     .get((req, res, next) => {
+				//throw new Error("No se pudo entrar a la aplicacion.")
         // middleware
         console.log(`Request from: ${req.originalUrl}`)
         console.log(`Request type: ${req.method}`)
