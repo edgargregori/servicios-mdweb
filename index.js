@@ -90,14 +90,14 @@ app.use(express.static('public'));
 
 app.use(error);
 
-app.get('/', (err, req, res) => {
+app.get('/', (req, res) => { 
 	try{
 				//winston.log('error', err.message);
-				winston.error(err.message, err);
+				//winston.error(err.message, err);
 				//throw new Error("No se pudo entrar a la aplicacion.")
 				//let error= new Error("No se pudo entrar a la aplicacion.")
 				//callback(error);
-    res.send(`Node and express server is running on port ${PORT}`);
+    res.send(`Node and express server is running on port ${PORT}`)
 	} catch (e) {
 		console.log(e.name + ": " +e.message);
 	}
